@@ -1,0 +1,10 @@
+/* Customize nice!view status screen: disable WPM graph and enable lock indicators */
+
+&wpm_graph {
+    status = "disabled";
+};
+
+&lock_status {
+    status = "okay";
+};
+
