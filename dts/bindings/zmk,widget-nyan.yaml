@@ -1,0 +1,35 @@
+# SPDX-License-Identifier: MIT
+
+title: ZMK Animated Nyan Widget
+
+description: |
+  Animated Nyan Cat widget for ZMK status screen. Cycles frames and
+  stops after a configurable timeout.
+
+compatible: "zmk,widget-nyan"
+
+properties:
+  x:
+    type: int
+    required: false
+    description: X position in pixels on the screen
+    default: 80
+
+  y:
+    type: int
+    required: false
+    description: Y position in pixels on the screen
+    default: 0
+
+  frame-delay-ms:
+    type: int
+    required: false
+    description: Frame interval in milliseconds
+    default: 100
+
+  timeout-ms:
+    type: int
+    required: false
+    description: Auto-stop animation timeout in milliseconds
+    default: 10000
+

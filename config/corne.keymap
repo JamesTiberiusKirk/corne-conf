@@ -82,8 +82,8 @@
 //                    |     |     |     |   |     |     |     |
                         bindings = <
 &trans    &trans &trans    &trans    &trans    &trans          &trans         &trans               &trans        &trans          &trans &trans
-&trans    &trans &mkp RCLK &mkp MCLK &mkp LCLK &msc SCRL_UP    &mmv MOVE_LEFT &mmv MOVE_DOWN       &mmv MOVE_UP  &mmv MOVE_RIGHT &trans &trans
-&trans    &tog 4 &trans    &trans    &trans    &msc SCRL_DOWN  &trans         &trans               &trans        &trans          &trans &trans
+&trans    &trans &mkp RCLK &mkp MCLK &mkp LCLK &msc 0 -1       &mmv -10 0     &mmv 0 10            &mmv 0 -10    &mmv 10 0       &trans &trans
+&trans    &tog 4 &trans    &trans    &trans    &msc 0 1        &trans         &trans               &trans        &trans          &trans &trans
                                      &trans    &trans          &trans         &trans               &trans        &trans
                         >;
                 };

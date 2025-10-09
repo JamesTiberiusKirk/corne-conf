@@ -1,3 +1,5 @@
+name: zmk-nyan-widget
 build:
-  settings:
-    board_root: .
+  cmake: .
+  kconfig: Kconfig
+

@@ -8,3 +8,15 @@
     status = "okay";
 };
 
+/* Add animated Nyan on the right screen area */
+/ {
+    nyan_right: nyan_right@0 {
+        compatible = "zmk,widget-nyan";
+        status = "okay";
+        /* Position near top-right for typical nice!view (adjust as desired) */
+        x = <96>;
+        y = <0>;
+        frame-delay-ms = <100>;
+        timeout-ms = <10000>; /* stop after 10 seconds */
+    };
+};

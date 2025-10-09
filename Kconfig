@@ -1,0 +1,9 @@
+menu "ZMK Nyan Widget"
+
+config ZMK_WIDGET_NYAN
+    bool "Enable animated Nyan widget"
+    default y
+    help
+      Adds an animated Nyan Cat widget to the status screen.
+
+endmenu
