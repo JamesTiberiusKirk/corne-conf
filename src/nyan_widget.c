@@ -83,12 +83,18 @@ static void nyan_frame_cb(lv_timer_t *t)
         int y = DT_PROP_OR(node_id, y, 0);                                                        \
         uint32_t frame_delay_ms = DT_PROP_OR(node_id, frame_delay_ms, 100);                       \
         uint32_t timeout_ms = DT_PROP_OR(node_id, timeout_ms, 10000);                             \
-        /* Create an image on the active screen and start animating */                             \
+        /* Create an image on the right display if present, else default */                       \
         inst_##node_id.frame_count = ARRAY_SIZE(frames);                                          \
         inst_##node_id.frame_idx = 0;                                                             \
         inst_##node_id.timeout_ms = timeout_ms;                                                   \
         inst_##node_id.start_ms = k_uptime_get();                                                 \
-        inst_##node_id.img = lv_img_create(lv_scr_act());                                         \
+        lv_disp_t *disp_def = lv_disp_get_default();                                              \
+        lv_disp_t *disp_target = lv_disp_get_next(disp_def); /* likely the right display */       \
+        if (disp_target == NULL) {                                                                \
+            disp_target = disp_def;                                                               \
+        }                                                                                         \
+        lv_obj_t *parent = lv_disp_get_scr_act(disp_target);                                      \
+        inst_##node_id.img = lv_img_create(parent);                                               \
         lv_img_set_src(inst_##node_id.img, frames[0]);                                            \
         lv_obj_set_pos(inst_##node_id.img, x, y);                                                 \
         inst_##node_id.frame_timer = lv_timer_create(nyan_frame_cb, frame_delay_ms, &inst_##node_id); \
