@@ -88,7 +88,6 @@
                         >;
                 };
        };
-        };
         /* Add Nyan widget node here so it is always included via keymap overlay */
         nyan_right: nyan_right@0 {
                 compatible = "zmk,widget-nyan";
