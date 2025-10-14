@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2020 The ZMK Contributors
- *
- * SPDX-License-Identifier: MIT
- */
+* Copyright (c) 2020 The ZMK Contributors
+*
+* SPDX-License-Identifier: MIT
+*/
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
@@ -14,80 +14,129 @@
 #include <dt-bindings/zmk/pointing.h>
 
 / {
+        /* Fast movement/scroll values used when Shift is held in mouse layer */
+#define FAST_MOVE_VAL 1500    // pixels per tick (default is ~600)
+#define FAST_SCRL_VAL 20      // lines per tick (default is ~10)
+};
+
+/ {
         keymap {
                 compatible = "zmk,keymap";
 
                 default_layer {
                         display-name = "Default Layer";
-// -----------------------------------------------------------------------------------------
-// |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BSPC |
-// | CTRL |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
-// | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ESC  |
-//                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
+                        // -----------------------------------------------------------------------------------------
+                        // |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BSPC |
+                        // | CTRL |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
+                        // | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ESC  |
+                        //                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
                         bindings = <
-&kp TAB   &kp Q &kp W &kp E     &kp R &kp T             &kp Y     &kp U  &kp I     &kp O   &kp P    &kp BSPC
-&kp LCTRL &kp A &kp S &kp D     &kp F &kp G             &kp H     &kp J  &kp K     &kp L   &kp SEMI &kp SQT
-&kp LSHFT &kp Z &kp X &kp C     &kp V &kp B             &kp N     &kp M  &kp COMMA &kp DOT &kp FSLH &kp ESC
-                      &kp LGUI  &mo 1 &kp RET           &kp SPACE &mo 2  &kp RALT
+                                &kp TAB   &kp Q &kp W &kp E     &kp R &kp T             &kp Y     &kp U  &kp I     &kp O   &kp P    &kp BSPC
+                                &kp LCTRL &kp A &kp S &kp D     &kp F &kp G             &kp H     &kp J  &kp K     &kp L   &kp SEMI &kp SQT
+                                &kp LSHFT &kp Z &kp X &kp C     &kp V &kp B             &kp N     &kp M  &kp COMMA &kp DOT &kp FSLH &kp ESC
+                                &kp LGUI  &mo 1 &kp RET           &kp SPACE &mo 2  &kp RALT
                         >;
                 };
                 lower_layer {
                         display-name = "Lower Layer";
-// -----------------------------------------------------------------------------------------
-// |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | DELE |
-// | BTCLR| BT1 |     |     |     |     |   | LFT | DWN |  UP | RGT |     |      |
-// | SHFT |     |     |     |     |     |   |     |     |     |     |     |      |
-//                    | GUI |     | SPC |   | ENT | BLE | ALT |
+                        // -----------------------------------------------------------------------------------------
+                        // |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BSPC |
+                        // | BTCLR| BT1 |     |     |     |     |   | LFT | DWN |  UP | RGT |     |      |
+                        // | SHFT |     |     |     |     |     |   |     |     |     |     |     |      |
+                        //                    | GUI |     | SPC |   | ENT | BLE | ALT |
                         bindings = <
-&kp TAB    &kp N1       &kp N2       &kp N3       &kp N4          &kp N5             &kp N6     &kp N7   &kp N8   &kp N9    &kp N0 &kp DELETE
-&kp LCTRL  &trans       &kp C_BRI_UP &kp C_PREV   &kp C_PP        &kp C_NEXT         &kp LEFT   &kp DOWN &kp UP   &kp RIGHT &trans &trans
-&kp LSHFT  &tog 4       &kp C_BRI_DN &kp C_MUTE   &kp C_VOL_DN    &kp C_VOL_UP       &trans     &trans   &trans   &trans    &trans &trans
-                                     &kp LGUI     &trans          &kp RET            &kp SPACE  &mo 3    &kp RALT
+                                &kp TAB    &kp N1       &kp N2       &kp N3       &kp N4          &kp N5             &kp N6     &kp N7   &kp N8   &kp N9    &kp N0 &kp BSPC
+                                &kp LCTRL  &trans       &kp C_BRI_UP &kp C_PREV   &kp C_PP        &kp C_NEXT         &kp LEFT   &kp DOWN &kp UP   &kp RIGHT &trans &trans
+                                &kp LSHFT  &tog 4       &kp C_BRI_DN &kp C_MUTE   &kp C_VOL_DN    &kp C_VOL_UP       &trans     &trans   &trans   &trans    &trans &trans
+                                &kp LGUI     &trans          &kp RET            &kp SPACE  &mo 3    &kp RALT
                         >;
                 };
                 raise_layer {
                         display-name = "Raise Layer";
-// -----------------------------------------------------------------------------------------
-// |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BSPC |
-// | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
-// | SHFT |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
-//                    | GUI |     | SPC |   | ENT |     | ALT |
+                        // -----------------------------------------------------------------------------------------
+                        // |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BSPC |
+                        // | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
+                        // | SHFT |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
+                        //                    | GUI |     | SPC |   | ENT |     | ALT |
                         bindings = <
-&kp  TAB  &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT        &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR &kp BSPC
-&kp LCTRL &trans   &trans &trans   &trans   &trans           &kp MINUS &kp EQUAL &kp LBKT  &kp RBKT &kp BSLH &kp GRAVE
-&kp LSHFT &trans   &trans &trans   &trans   &trans           &kp UNDER &kp PLUS  &kp LBRC  &kp RBRC &kp PIPE &kp TILDE
-                     &kp LGUI &trans   &kp RET               &kp SPACE &trans    &kp RALT
+                                &kp  TAB  &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT        &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR &kp BSPC
+                                &kp LCTRL &trans   &trans &trans   &trans   &trans           &kp MINUS &kp EQUAL &kp LBKT  &kp RBKT &kp BSLH &kp GRAVE
+                                &kp LSHFT &trans   &trans &trans   &trans   &trans           &kp UNDER &kp PLUS  &kp LBRC  &kp RBRC &kp PIPE &kp TILDE
+                                &kp LGUI &trans   &kp RET               &kp SPACE &trans    &kp RALT
                         >;
                 };
                 bt_layer {
                         display-name = "Ble Layer";
-// -----------------------------------------------------------------------------------------
-// |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BSPC |
-// | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   |     |     |     |     |     |      |
-// | SHFT |     |     |     |     |     |   |     |     |     |     |     |      |
-//                    | GUI |     | SPC |   | ENT |     | ALT |
+                        // -----------------------------------------------------------------------------------------
+                        // |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BSPC |
+                        // | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   |     |     |     |     |     |      |
+                        // | SHFT |     |     |     |     |     |   |     |     |     |     |     |      |
+                        //                    | GUI |     | SPC |   | ENT |     | ALT |
                         bindings = <
-&kp TAB    &kp N1       &kp N2       &kp N3       &kp N4          &kp N5         &kp N6    &kp N7 &kp N8 &kp N9 &kp N0 &kp BSPC
-&bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3    &bt BT_SEL 4   &trans    &trans &trans &trans &trans &trans
-&kp LSHFT  &trans       &trans       &trans       &trans          &trans         &trans    &trans &trans &trans &trans &trans
-                                     &kp LGUI     &trans          &kp RET        &kp SPACE &trans &kp RALT
+                                &kp TAB    &kp N1       &kp N2       &kp N3       &kp N4          &kp N5         &kp N6    &kp N7 &kp N8 &kp N9 &kp N0 &kp BSPC
+                                &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3    &bt BT_SEL 4   &trans    &trans &trans &trans &trans &trans
+                                &kp LSHFT  &trans       &trans       &trans       &trans          &trans         &trans    &trans &trans &trans &trans &trans
+                                &kp LGUI     &trans          &kp RET        &kp SPACE &trans &kp RALT
                         >;
                 };
                 mouse_layer {
                         display-name = "Mouse Layer";
-// -----------------------------------------------------------------------------------------
-// |      |     |     |     |     |     |   |     |     |     |     |     |      |
-// |      |     |     |     |     |     |   | H←  | J↓  | K↑  | L→  |     |      |
-// |      |     |     |     |     |     |   |     |     |     |     |     |      |
-//                    |     |     |     |   |     |     |     |
+                        // -----------------------------------------------------------------------------------------
+                        // Hold Shift: faster move/scroll (boost behaviors)
+                        // -----------------------------------------------------------------------------------------
+                        // |      |     | RCLK| MCLK| LCLK| SCRL↑|   |  ←  |  ↓  |  ↑  |  →  |      |      |
+                        // |      | TOG4|     |     |     | SCRL↓|   |      |      |      |      |      |      |
+                        // |      |     |     |     |     |      |   |      |      |      |      |      |      |
+                        //                    |     |     |     |   |     |     |     |
                         bindings = <
-&trans    &trans &trans    &trans    &trans    &trans          &trans         &trans               &trans        &trans          &trans &trans
-&trans    &trans &mkp RCLK &mkp MCLK &mkp LCLK &msc SCRL_UP    &mmv MOVE_LEFT &mmv MOVE_DOWN       &mmv MOVE_UP  &mmv MOVE_RIGHT &trans &trans
-&trans    &tog 4 &trans    &trans    &trans    &msc SCRL_DOWN  &trans         &trans               &trans        &trans          &trans &trans
-                                     &trans    &trans          &trans         &trans               &trans        &trans
+                                &trans    &trans &trans    &trans    &trans    &trans          &trans         &trans               &trans        &trans          &trans &trans
+                                &trans    &trans &mkp RCLK &mkp MCLK &mkp LCLK &msc_up_boost   &mmv_left_boost &mmv_down_boost     &mmv_up_boost  &mmv_right_boost &trans &trans
+                                &trans    &tog 4 &trans    &trans    &trans    &msc_down_boost &trans          &trans               &trans         &trans           &trans &trans
+                                &trans    &trans          &trans         &trans               &trans        &trans
                         >;
                 };
-       };
+        };
+        /* Behaviors: Shift-to-boost mouse move/scroll in mouse layer */
+        behaviors {
+                mmv_left_boost: mmv_left_boost {
+                        compatible = "zmk,behavior-mod-morph";
+                        label = "MMV_LEFT_BOOST";
+                        mods = <(MOD_LSFT|MOD_RSFT)>;
+                        bindings = <&mmv MOVE_LEFT>, <&mmv MOVE_X(-FAST_MOVE_VAL)>;
+                };
+                mmv_right_boost: mmv_right_boost {
+                        compatible = "zmk,behavior-mod-morph";
+                        label = "MMV_RIGHT_BOOST";
+                        mods = <(MOD_LSFT|MOD_RSFT)>;
+                        bindings = <&mmv MOVE_RIGHT>, <&mmv MOVE_X(FAST_MOVE_VAL)>;
+                };
+                mmv_up_boost: mmv_up_boost {
+                        compatible = "zmk,behavior-mod-morph";
+                        label = "MMV_UP_BOOST";
+                        mods = <(MOD_LSFT|MOD_RSFT)>;
+                        bindings = <&mmv MOVE_UP>, <&mmv MOVE_Y(-FAST_MOVE_VAL)>;
+                };
+                mmv_down_boost: mmv_down_boost {
+                        compatible = "zmk,behavior-mod-morph";
+                        label = "MMV_DOWN_BOOST";
+                        mods = <(MOD_LSFT|MOD_RSFT)>;
+                        bindings = <&mmv MOVE_DOWN>, <&mmv MOVE_Y(FAST_MOVE_VAL)>;
+                };
+
+                msc_up_boost: msc_up_boost {
+                        compatible = "zmk,behavior-mod-morph";
+                        label = "MSC_UP_BOOST";
+                        mods = <(MOD_LSFT|MOD_RSFT)>;
+                        bindings = <&msc SCRL_UP>, <&msc SCRL_Y(-FAST_SCRL_VAL)>;
+                };
+                msc_down_boost: msc_down_boost {
+                        compatible = "zmk,behavior-mod-morph";
+                        label = "MSC_DOWN_BOOST";
+                        mods = <(MOD_LSFT|MOD_RSFT)>;
+                        bindings = <&msc SCRL_DOWN>, <&msc SCRL_Y(FAST_SCRL_VAL)>;
+                };
+        };
+
         /* Add Nyan widget node here so it is always included via keymap overlay */
         nyan_right: nyan_right {
                 compatible = "zmk,widget-nyan";

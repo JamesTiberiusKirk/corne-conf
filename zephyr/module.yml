@@ -1,5 +1,0 @@
-name: zmk-nyan-widget
-build:
-  cmake: .
-  kconfig: Kconfig
-
