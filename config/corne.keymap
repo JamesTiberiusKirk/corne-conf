@@ -13,11 +13,9 @@
 
 #include <dt-bindings/zmk/pointing.h>
 
-/ {
-        /* Fast movement/scroll values used when Shift is held in mouse layer */
+// Fast movement/scroll values used when Shift is held in mouse layer
 #define FAST_MOVE_VAL 1500    // pixels per tick (default is ~600)
 #define FAST_SCRL_VAL 20      // lines per tick (default is ~10)
-};
 
 / {
         keymap {
