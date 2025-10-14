@@ -94,28 +94,28 @@
                 behaviors {
                 mmv_left_boost: mmv_left_boost {
                         compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <1>;
+                        #binding-cells = <0>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
                         // X axis (0x00): default -600, boosted -1500
                         bindings = <&mmv (((0x00 << 16) | ((-600) & 0xFFFF)))>, <&mmv (((0x00 << 16) | ((-1500) & 0xFFFF)))>;
                 };
                 mmv_right_boost: mmv_right_boost {
                         compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <1>;
+                        #binding-cells = <0>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
                         // X axis (0x00): default 600, boosted 1500
                         bindings = <&mmv (((0x00 << 16) | ((600) & 0xFFFF)))>, <&mmv (((0x00 << 16) | ((1500) & 0xFFFF)))>;
                 };
                 mmv_up_boost: mmv_up_boost {
                         compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <1>;
+                        #binding-cells = <0>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
                         // Y axis (0x01): default -600, boosted -1500
                         bindings = <&mmv (((0x01 << 16) | ((-600) & 0xFFFF)))>, <&mmv (((0x01 << 16) | ((-1500) & 0xFFFF)))>;
                 };
                 mmv_down_boost: mmv_down_boost {
                         compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <1>;
+                        #binding-cells = <0>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
                         // Y axis (0x01): default 600, boosted 1500
                         bindings = <&mmv (((0x01 << 16) | ((600) & 0xFFFF)))>, <&mmv (((0x01 << 16) | ((1500) & 0xFFFF)))>;
@@ -123,14 +123,14 @@
 
                 msc_up_boost: msc_up_boost {
                         compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <1>;
+                        #binding-cells = <0>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
                         // Wheel Y (0x08): default -10, boosted -20
                         bindings = <&msc (((0x08 << 16) | ((-10) & 0xFFFF)))>, <&msc (((0x08 << 16) | ((-20) & 0xFFFF)))>;
                 };
                 msc_down_boost: msc_down_boost {
                         compatible = "zmk,behavior-mod-morph";
-                        #binding-cells = <1>;
+                        #binding-cells = <0>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
                         // Wheel Y (0x08): default 10, boosted 20
                         bindings = <&msc (((0x08 << 16) | ((10) & 0xFFFF)))>, <&msc (((0x08 << 16) | ((20) & 0xFFFF)))>;
