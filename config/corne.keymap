@@ -13,10 +13,6 @@
 
 #include <dt-bindings/zmk/pointing.h>
 
-// Fast movement/scroll values used when Shift is held in mouse layer
-#define FAST_MOVE_VAL 1500    // pixels per tick (default is ~600)
-#define FAST_SCRL_VAL 20      // lines per tick (default is ~10)
-
 / {
         keymap {
                 compatible = "zmk,keymap";
@@ -100,38 +96,38 @@
                         compatible = "zmk,behavior-mod-morph";
                         label = "MMV_LEFT_BOOST";
                         mods = <(MOD_LSFT|MOD_RSFT)>;
-                        bindings = <&mmv MOVE_LEFT>, <&mmv MOVE_X(-FAST_MOVE_VAL)>;
+                        bindings = <&mmv MOVE_LEFT>, <&mmv MOVE_X(-1500)>;
                 };
                 mmv_right_boost: mmv_right_boost {
                         compatible = "zmk,behavior-mod-morph";
                         label = "MMV_RIGHT_BOOST";
                         mods = <(MOD_LSFT|MOD_RSFT)>;
-                        bindings = <&mmv MOVE_RIGHT>, <&mmv MOVE_X(FAST_MOVE_VAL)>;
+                        bindings = <&mmv MOVE_RIGHT>, <&mmv MOVE_X(1500)>;
                 };
                 mmv_up_boost: mmv_up_boost {
                         compatible = "zmk,behavior-mod-morph";
                         label = "MMV_UP_BOOST";
                         mods = <(MOD_LSFT|MOD_RSFT)>;
-                        bindings = <&mmv MOVE_UP>, <&mmv MOVE_Y(-FAST_MOVE_VAL)>;
+                        bindings = <&mmv MOVE_UP>, <&mmv MOVE_Y(-1500)>;
                 };
                 mmv_down_boost: mmv_down_boost {
                         compatible = "zmk,behavior-mod-morph";
                         label = "MMV_DOWN_BOOST";
                         mods = <(MOD_LSFT|MOD_RSFT)>;
-                        bindings = <&mmv MOVE_DOWN>, <&mmv MOVE_Y(FAST_MOVE_VAL)>;
+                        bindings = <&mmv MOVE_DOWN>, <&mmv MOVE_Y(1500)>;
                 };
 
                 msc_up_boost: msc_up_boost {
                         compatible = "zmk,behavior-mod-morph";
                         label = "MSC_UP_BOOST";
                         mods = <(MOD_LSFT|MOD_RSFT)>;
-                        bindings = <&msc SCRL_UP>, <&msc SCRL_Y(-FAST_SCRL_VAL)>;
+                        bindings = <&msc SCRL_UP>, <&msc SCRL_Y(-20)>;
                 };
                 msc_down_boost: msc_down_boost {
                         compatible = "zmk,behavior-mod-morph";
                         label = "MSC_DOWN_BOOST";
                         mods = <(MOD_LSFT|MOD_RSFT)>;
-                        bindings = <&msc SCRL_DOWN>, <&msc SCRL_Y(FAST_SCRL_VAL)>;
+                        bindings = <&msc SCRL_DOWN>, <&msc SCRL_Y(20)>;
                 };
         };
 
