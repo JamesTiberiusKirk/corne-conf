@@ -14,6 +14,12 @@
 #include <dt-bindings/zmk/pointing.h>
 
 / {
+        /* Fast movement/scroll values used when Shift is held in mouse layer */
+#define FAST_MOVE_VAL 1500    // pixels per tick (default is ~600)
+#define FAST_SCRL_VAL 20      // lines per tick (default is ~10)
+};
+
+/ {
         keymap {
                 compatible = "zmk,keymap";
 
@@ -96,29 +102,25 @@
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
-                        // X axis (0x00): default -600, boosted -1500
-                        bindings = <&mmv (((0x00 << 16) | ((-600) & 0xFFFF)))>, <&mmv (((0x00 << 16) | ((-1500) & 0xFFFF)))>;
+                        bindings = <&mmv MOVE_LEFT>, <&mmv MOVE_X(-FAST_MOVE_VAL)>;
                 };
                 mmv_right_boost: mmv_right_boost {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
-                        // X axis (0x00): default 600, boosted 1500
-                        bindings = <&mmv (((0x00 << 16) | ((600) & 0xFFFF)))>, <&mmv (((0x00 << 16) | ((1500) & 0xFFFF)))>;
+                        bindings = <&mmv MOVE_RIGHT>, <&mmv MOVE_X(FAST_MOVE_VAL)>;
                 };
                 mmv_up_boost: mmv_up_boost {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
-                        // Y axis (0x01): default -600, boosted -1500
-                        bindings = <&mmv (((0x01 << 16) | ((-600) & 0xFFFF)))>, <&mmv (((0x01 << 16) | ((-1500) & 0xFFFF)))>;
+                        bindings = <&mmv MOVE_UP>, <&mmv MOVE_Y(-FAST_MOVE_VAL)>;
                 };
                 mmv_down_boost: mmv_down_boost {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
-                        // Y axis (0x01): default 600, boosted 1500
-                        bindings = <&mmv (((0x01 << 16) | ((600) & 0xFFFF)))>, <&mmv (((0x01 << 16) | ((1500) & 0xFFFF)))>;
+                        bindings = <&mmv MOVE_DOWN>, <&mmv MOVE_Y(FAST_MOVE_VAL)>;
                 };
 
                 msc_up_boost: msc_up_boost {
