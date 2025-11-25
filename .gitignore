@@ -1,0 +1,7 @@
+firmware/
+out/
+build/
+.west/
+zmk/
+zephyr/
+modules/

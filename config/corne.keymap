@@ -14,128 +14,351 @@
 #include <dt-bindings/zmk/pointing.h>
 
 / {
-        /* Fast movement/scroll values used when Shift is held in mouse layer */
-#define FAST_MOVE_VAL 1500    // pixels per tick (default is ~600)
-#define FAST_SCRL_VAL 20      // lines per tick (default is ~10)
+        /* Mouse movement/scroll speed values */
+#define DEFAULT_MOVE_VAL 800  // pixels per tick (normal speed)
+#define DEFAULT_SCRL_VAL 10   // lines per tick (normal speed)
+
+#define FAST_MOVE_VAL 1500    // pixels per tick (Shift held)
+#define FAST_SCRL_VAL 20      // lines per tick (Shift held)
+
+        /* Layer macros - organized by layer number (0-9) */
+        macros {
+                // Layer 0: Default (NORMAL mode)
+                mode_normal: mode_normal {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&to 0>;
+                };
+
+                        // Layer 1: Lower (NORMAL sublayer)
+                        lower_macro: lower_macro {
+                                compatible = "zmk,behavior-macro";
+                                #binding-cells = <0>;
+                                bindings = <&to 1>;
+                        };
+
+                        // Layer 2: Raise (NORMAL sublayer)
+                        raise_macro: raise_macro {
+                                compatible = "zmk,behavior-macro";
+                                #binding-cells = <0>;
+                                bindings = <&to 2>;
+                        };
+
+                // Layer 3: Mouse (MOUSE mode)
+                mode_mouse: mode_mouse {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&to 3>;
+                };
+
+                // Layer 4: Gaming (GAMING mode)
+                mode_gaming: mode_gaming {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&to 4>;
+                };
+
+                        // Layer 5: Gaming utils (GAMING sublayer)
+                        gaming_util_macro: gaming_util_macro {
+                                compatible = "zmk,behavior-macro";
+                                #binding-cells = <0>;
+                                bindings = <&to 5>;
+                        };
+
+                        // Layer 6: Gaming macros (GAMING sublayer)
+                        gaming_macro_macro: gaming_macro_macro {
+                                compatible = "zmk,behavior-macro";
+                                #binding-cells = <0>;
+                                bindings = <&to 6>;
+                        };
+
+                // Layer 7: Media (MEDIA mode)
+                mode_media: mode_media {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&to 7>;
+                };
+
+                        // Layer 8: Media utils (MEDIA sublayer)
+                        media_util_macro: media_util_macro {
+                                compatible = "zmk,behavior-macro";
+                                #binding-cells = <0>;
+                                bindings = <&to 8>;
+                        };
+
+                // Layer 9: Mode select
+                mode_select_macro: mode_select_macro {
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        bindings = <&to 9>;
+                };
+        };
 };
 
 / {
         keymap {
                 compatible = "zmk,keymap";
 
+                // ═════════════════════════════════════════════════════════════════════════════════════
+                // NORMAL MODE: Layers 0-2
+                // ═════════════════════════════════════════════════════════════════════════════════════
+
                 default_layer {
-                        display-name = "Default Layer";
+                        display-name = "NORMAL";
                         // -----------------------------------------------------------------------------------------
-                        // |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BSPC |
-                        // | CTRL |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
-                        // | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ESC  |
-                        //                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
+                        // |  TAB |  Q  |  W  |  E  |  R  |  T  |---|  Y  |  U   |  I  |  O  |  P  | BSPC |
+                        // | CTRL |  A  |  S  |  D  |  F  |  G  |---|  H  |  J   |  K  |  L  |  ;  |  '   |
+                        // | SHFT |  Z  |  X  |  C  |  V  |  B  |---|  N  |  M   |  ,  |  .  |  /  | ESC  |
+                        //                    | GUI | LWR | RET |---| SPC | RSE  | ALT |
                         bindings = <
-                                &kp TAB   &kp Q &kp W &kp E    &kp R &kp T       &kp Y     &kp U  &kp I     &kp O   &kp P    &kp BSPC
-                                &kp LCTRL &kp A &kp S &kp D    &kp F &kp G       &kp H     &kp J  &kp K     &kp L   &kp SEMI &kp SQT
-                                &kp LSHFT &kp Z &kp X &kp C    &kp V &kp B       &kp N     &kp M  &kp COMMA &kp DOT &kp FSLH &kp ESC
-                                                      &kp LGUI &mo 1 &kp RET     &kp SPACE &mo 2  &kp RALT
+                &kp TAB   &kp Q &kp W &kp E    &kp R &kp T       &kp Y     &kp U  &kp I     &kp O   &kp P    &kp BSPC
+                &kp LCTRL &kp A &kp S &kp D    &kp F &kp G       &kp H     &kp J  &kp K     &kp L   &kp SEMI &kp SQT
+                &kp LSHFT &kp Z &kp X &kp C    &kp V &kp B       &kp N     &kp M  &kp COMMA &kp DOT &kp FSLH &kp ESC
+                                      &kp LGUI &mo 1 &kp RET     &kp SPACE &mo 2  &kp RALT
                         >;
                 };
+
+                // ─────────────────────────────────────────────────────────────────────────────
+                // NORMAL MODE - Sublayer: Lower (Numbers/Media)
+                // ─────────────────────────────────────────────────────────────────────────────
+
                 lower_layer {
-                        display-name = "Lower Layer";
+                        display-name = "NUM/MEDIA";
                         // -----------------------------------------------------------------------------------------
-                        // |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BSPC |
-                        // | BTCLR| BT1 |     |     |     |     |   | LFT | DWN |  UP | RGT |     |      |
-                        // | SHFT |     |     |     |     |     |   |     |     |     |     |     |      |
-                        //                    | GUI |     | SPC |   | ENT | BLE | ALT |
+                        // |  TAB |  0  |  1  |  2  |  3  |     |---| PREV| PLAY| NEXT|     |BRIUP| BSPC |
+                        // | CTRL |     |  4  |  5  |  6  |     |---| LFT | DWN |  UP | RGT |BRIDN| DEL  |
+                        // | SHFT |     |  7  |  8  |  9  |     |---| VOL-| MUTE| VOL+|MOUSE|     |      |
+                        //                    | GUI |     | RET |---| SPC | BLE | ALT |
                         bindings = <
-                                &kp TAB    &kp N1       &kp N2       &kp N3       &kp N4              &kp N5             &kp N6     &kp N7   &kp N8   &kp N9    &kp N0 &kp BSPC
-                                &kp LCTRL  &trans       &kp C_BRI_UP &kp C_PREV   &kp C_PP            &kp C_NEXT         &kp LEFT   &kp DOWN &kp UP   &kp RIGHT &trans &trans
-                                &kp LSHFT  &tog 4       &kp C_BRI_DN &kp C_MUTE   &kp C_VOL_DN        &kp C_VOL_UP       &trans     &trans   &trans   &trans    &trans &trans
-                                                        &kp LGUI     &trans          &kp RET          &kp SPACE  &mo 3    &kp RALT
+                &kp TAB   &kp N0   &kp N1    &kp N2    &kp N3  &none      &kp C_PREV   &kp C_PP   &kp C_NEXT &none     &kp C_BRI_UP  &kp BSPC
+                &kp LCTRL &none    &kp N4    &kp N5    &kp N6  &none      &kp LEFT     &kp DOWN   &kp UP     &kp RIGHT &kp C_BRI_DN  &kp DEL
+                &kp LSHFT &none    &kp N7    &kp N8    &kp N9  &none      &kp C_VOL_DN &kp C_MUTE &kp C_VOL_UP &tog 3  &none         &none
+                                             &kp LGUI  &trans  &kp RET    &kp SPACE    &trans     &kp RALT
                         >;
                 };
+
+                // ─────────────────────────────────────────────────────────────────────────────
+                // NORMAL MODE - Sublayer: Raise (Symbols)
+                // ─────────────────────────────────────────────────────────────────────────────
+
                 raise_layer {
-                        display-name = "Raise Layer";
+                        display-name = "SYM";
                         // -----------------------------------------------------------------------------------------
-                        // |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BSPC |
-                        // | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
-                        // | SHFT |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
-                        //                    | GUI |     | SPC |   | ENT |     | ALT |
+                        // |  TAB |     |  !  |  @  |  #  |     |---|     |  ~  |  (  |  )  |  `  | BSPC |
+                        // | CTRL |     |  $  |  %  |  ^  |     |---|  -  |  =  |  [  |  ]  |  \  | DEL  |
+                        // | SHFT |     |  &  |  *  |     |     |---|  _  |  +  |  {  |  }  |  |  | ESC  |
+                        //                    | GUI |     | RET |---| SPC |     | ALT |
                         bindings = <
-                                &kp  TAB  &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT        &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR &kp BSPC
-                                &kp LCTRL &trans   &trans &trans   &trans   &trans           &kp MINUS &kp EQUAL &kp LBKT  &kp RBKT &kp BSLH &kp GRAVE
-                                &kp LSHFT &trans   &trans &trans   &trans   &trans           &kp UNDER &kp PLUS  &kp LBRC  &kp RBRC &kp PIPE &kp TILDE
-                                                          &kp LGUI &trans   &kp RET          &kp SPACE &trans    &kp RALT
+                &kp TAB     &none   &kp EXCL &kp AT      &kp HASH  &none       &none     &kp TILDE &kp LPAR  &kp RPAR  &kp GRAVE  &kp BSPC
+                &kp LCTRL   &none   &kp DLLR &kp PRCNT   &kp CARET &none       &kp MINUS &kp EQUAL &kp LBKT  &kp RBKT  &kp BSLH   &kp DEL
+                &kp LSHFT   &none   &kp AMPS &kp ASTRK   &none     &none       &kp UNDER &kp PLUS  &kp LBRC  &kp RBRC  &kp PIPE   &kp ESC 
+                                                         &kp LGUI  &trans    &kp RET     &kp SPACE &trans    &kp RALT
                         >;
                 };
-                bt_layer {
-                        display-name = "Ble Layer";
-                        // -----------------------------------------------------------------------------------------
-                        // |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BSPC |
-                        // | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   |     |     |     |     |     |      |
-                        // | SHFT |     |     |     |     |     |   |     |     |     |     |     |      |
-                        //                    | GUI |     | SPC |   | ENT |     | ALT |
-                        bindings = <
-                                &trans     &trans       &trans       &trans       &trans       &trans             &trans    &trans &trans &trans &trans &trans
-                                &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4       &trans    &trans &trans &trans &trans &trans
-                                &trans     &trans       &trans       &trans       &trans       &trans             &trans    &trans &trans &trans &trans &trans
-                                                                     &kp LGUI     &trans       &kp RET            &kp SPACE &trans &kp RALT
-                        >;
-                };
+
+                // ═════════════════════════════════════════════════════════════════════════════════════
+                // MOUSE MODE: Layer 3
+                // ════════════════════════════════════════════════════════════════════════════════════
+
                 mouse_layer {
-                        display-name = "Mouse Layer";
+                        display-name = "MOUSE";
                         // -----------------------------------------------------------------------------------------
                         // Hold Shift: faster move/scroll (boost behaviors)
+                        // Lower+Raise preserved for mode switching
                         // -----------------------------------------------------------------------------------------
                         // |      |     |     |     |     |     |   |     |     |     |     |      |      |
-                        // |      |     | RCLK| MCLK| LCLK|SCRL↑|   |  ←  |  ↓  |  ↑  |  →  |      |      |
-                        // |      | TOG4|     |     |     |SCRL↓|   |     |     |     |     |      |      |
-                        //                    |     |     |     |   |     |     |     |
+                        // |      |     | RCLK| MCLK| LCLK|SCRL↓|   |  ←  |  ↓  |  ↑  |  →  |      |      |
+                        // |      | TOG3|     |     |     |SCRL↑|   |     |     |     |     |      | TOG3 |
+                        //                    |     | LWR |     |   |     | RSE |     |
                         bindings = <
-                                &trans    &trans &trans    &trans    &trans    &trans                   &trans          &trans              &trans        &trans           &trans &trans
-                                &trans    &trans &mkp RCLK &mkp MCLK &mkp LCLK &msc_up_boost            &mmv_left_boost &mmv_down_boost     &mmv_up_boost &mmv_right_boost &trans &trans
-                                &trans    &tog 4 &trans    &trans    &trans    &msc_down_boost          &trans          &trans              &trans        &trans           &trans &trans
-                                                           &trans    &trans    &trans                   &trans          &trans              &trans
+                &trans    &trans &trans    &trans    &trans    &trans              &trans          &trans              &trans        &trans           &trans &trans
+                &trans    &trans &mkp RCLK &mkp MCLK &mkp LCLK &msc_down_boost     &mmv_left_boost &mmv_down_boost     &mmv_up_boost &mmv_right_boost &trans &trans
+                &trans    &tog 3 &trans    &trans    &trans    &msc_up_boost       &trans          &trans              &trans        &trans           &trans &tog 3
+                                           &trans    &mo 1     &trans              &trans          &mo 2               &trans
+                        >;
+                };
+
+                // ═════════════════════════════════════════════════════════════════════════════════════
+                // GAMING MODE: Layers 4-6
+                // ═════════════════════════════════════════════════════════════════════════════════════
+
+                gaming_layer {
+                        display-name = "GAMING";
+                        // -----------------------------------------------------------------------------------------
+                        // Full QWERTY layout optimized for gaming
+                        // Lower+Raise thumbs preserved for mode switching
+                        // Right Alt accesses gaming utils (numbers/F-keys)
+                        // -----------------------------------------------------------------------------------------
+                        // | TAB  |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U  |  I  |  O  |  P  | BSPC |
+                        // | CTRL |  A  |  S  |  D  |  F  |  G  |   |  H  |  J  |  K  |  L  |  ;  |  '   |
+                        // | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M  |  ,  |  .  |  /  | ESC  |
+                        //                    | ESC | LWR | SPC |   | ENT | RSE |UTILS|
+                        bindings = <
+                &kp TAB   &kp Q &kp W &kp E    &kp R &kp T       &kp Y   &kp U  &kp I     &kp O   &kp P    &kp BSPC
+                &kp LCTRL &kp A &kp S &kp D    &kp F &kp G       &kp H   &kp J  &kp K     &kp L   &kp SEMI &kp SQT
+                &kp LSHFT &kp Z &kp X &kp C    &kp V &kp B       &kp N   &kp M  &kp COMMA &kp DOT &kp FSLH &kp ESC
+                                      &kp ESC  &mo 1 &kp SPACE   &kp RET &mo 2  &mo 5
+                        >;
+                };
+
+                // ─────────────────────────────────────────────────────────────────────────────
+                // GAMING MODE - Sublayer: Utils (Numpad/F-keys)
+                // ─────────────────────────────────────────────────────────────────────────────
+
+                gaming_util_layer {
+                        display-name = "GAME-UTILS";
+                        // -----------------------------------------------------------------------------------------
+                        // Numpad on left, F-keys on YUIHJKNM, arrows on ,;./
+                        // |  `   |  0  |  1  |  2  |  3  |     |---| F1  | F2  | F3  | F10 | F12 | BSPC |
+                        // |      |     |  4  |  5  |  6  |     |---| F4  | F5  | F6  | F11 | UP  | DEL  |
+                        // |      |     |  7  |  8  |  9  |     |---| F7  | F8  | F9  | DWN | RGT | LFT  |
+                        //                    |     |HELD |     |---|     |HELD |MACROS|
+                        bindings = <
+                &kp GRAVE &kp N0 &kp N1 &kp N2 &kp N3 &none       &kp F1   &kp F2   &kp F3  &kp F10  &kp F12   &kp BSPC
+                &trans    &none  &kp N4 &kp N5 &kp N6 &none       &kp F4   &kp F5   &kp F6  &kp F11  &kp UP    &kp DEL
+                &trans    &none  &kp N7 &kp N8 &kp N9 &none       &kp F7   &kp F8   &kp F9  &kp DOWN &kp RIGHT &kp LEFT
+                                        &trans &trans &trans      &trans   &trans   &mo 6
+                        >;
+                };
+
+                // ─────────────────────────────────────────────────────────────────────────────
+                // GAMING MODE - Sublayer: Macros (Custom game bindings)
+                // ─────────────────────────────────────────────────────────────────────────────
+
+                gaming_macro_layer {
+                        display-name = "GAME-MACRO";
+                        // -----------------------------------------------------------------------------------------
+                        // Custom macro layer for game-specific bindings
+                        // Use this for game-specific key combinations and macros
+                        // -----------------------------------------------------------------------------------------
+                        // |      |     |     |     |     |     |   |     |     |     |     |     |      |
+                        // |      |     |     |     |     |     |   |     |     |     |     |     |      |
+                        // |      |     |     |     |     |     |   |     |     |     |     |     |      |
+                        //                    |     |     |     |   |     |     |HELD |
+                        bindings = <
+                &trans &trans &trans &trans &trans &trans      &trans &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans &trans      &trans &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans &trans      &trans &trans &trans &trans &trans &trans
+                                     &trans &trans &trans      &trans &trans &trans
+                        >;
+                };
+
+                // ═════════════════════════════════════════════════════════════════════════════════════
+                // MEDIA MODE: Layers 7-8
+                // ═════════════════════════════════════════════════════════════════════════════════════
+
+                media_layer {
+                        display-name = "MEDIA";
+                        // -----------------------------------------------------------------------------------------
+                        // Media controls focused layout
+                        // Lower+Raise thumbs preserved for mode switching
+                        // Right Alt accesses media utils
+                        // -----------------------------------------------------------------------------------------
+                        // | TAB  |     |     |     |     |     |   |     |     |     |     |     | BSPC |
+                        // | CTRL |     |BRIUP| PREV| PLAY| NEXT|   | LFT | DWN | UP  | RGT |     |      |
+                        // | SHFT |     |BRIDN| MUTE|VOL- |VOL+ |   |     |     |     |     |     |      |
+                        //                    | GUI | LWR | ENT |   | SPC | RSE |UTILS|
+                        bindings = <
+                &kp TAB   &trans &trans       &trans     &trans       &trans          &trans   &trans   &trans &trans    &trans &kp BSPC
+                &kp LCTRL &trans &kp C_BRI_UP &kp C_PREV &kp C_PP     &kp C_NEXT      &kp LEFT &kp DOWN &kp UP &kp RIGHT &trans &trans
+                &kp LSHFT &trans &kp C_BRI_DN &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP    &trans   &trans   &trans &trans    &trans &trans
+                                              &kp LGUI   &mo 1        &kp RET         &kp SPACE &mo 2   &mo 8
+                        >;
+                };
+
+                // ─────────────────────────────────────────────────────────────────────────────
+                // MEDIA MODE - Sublayer: Utils (Additional media controls)
+                // ─────────────────────────────────────────────────────────────────────────────
+
+                media_util_layer {
+                        display-name = "MEDIA-UTIL";
+                        // -----------------------------------------------------------------------------------------
+                        // Additional media utilities
+                        // -----------------------------------------------------------------------------------------
+                        // |      |     |     |     |     |     |   |     |     |     |     |     |      |
+                        // |      |     |     |     |     |     |   |     |     |     |     |     |      |
+                        // |      |     |     |     |     |     |   |     |     |     |     |     |      |
+                        //                    |     |HELD |     |   |     |HELD |     |
+                        bindings = <
+                &trans &trans &trans &trans &trans &trans      &trans &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans &trans      &trans &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans &trans &trans      &trans &trans &trans &trans &trans &trans
+                                     &trans &trans &trans      &trans &trans &trans
+                        >;
+                };
+
+                // ═════════════════════════════════════════════════════════════════════════════════════
+                // LAYER 9: MODE SELECTION / BLE
+                // ═════════════════════════════════════════════════════════════════════════════════════
+
+                mode_select_layer {
+                        display-name = "MODE/BLE";
+                        // -----------------------------------------------------------------------------------------
+                        // Mode selection + Bluetooth - activated when Lower+Raise held together
+                        // Top row: Q/W/E/F to switch modes, Middle row: BT controls
+                        // -----------------------------------------------------------------------------------------
+                        // |      |NORML|GAME |MEDIA|MOUSE|     |   |     |     |     |     |     |      |
+                        // | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   |     |     |     |     |     |      |
+                        // |      |     |     |     |     |     |   |     |     |     |     |     |      |
+                        //                    |     |HELD |     |   |     |HELD |     |
+                        bindings = <
+                &trans     &mode_normal &mode_gaming &mode_media  &mode_mouse  &trans           &trans &trans &trans &trans &trans &trans
+                &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4     &trans &trans &trans &trans &trans &trans
+                &trans     &trans       &trans       &trans       &trans       &trans           &trans &trans &trans &trans &trans &trans
+                                                     &trans       &trans       &trans           &trans &trans &trans
                         >;
                 };
         };
+
+        /* Conditional layers - activates mode/BLE when lower+raise held */
+        conditional_layers {
+                compatible = "zmk,conditional-layers";
+                lower_raise_mode_select {
+                        if-layers = <1 2>;  // Lower and Raise
+                        then-layer = <9>;   // Mode/BLE layer
+                };
+        };
+
         // Behaviors: Shift-to-boost mouse move/scroll in mouse layer
-                behaviors {
+        behaviors {
                 mmv_left_boost: mmv_left_boost {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
-                        bindings = <&mmv MOVE_LEFT>, <&mmv MOVE_X(-FAST_MOVE_VAL)>;
+                        bindings = <&mmv MOVE_X(-DEFAULT_MOVE_VAL)>, <&mmv MOVE_X(-FAST_MOVE_VAL)>;
                 };
                 mmv_right_boost: mmv_right_boost {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
-                        bindings = <&mmv MOVE_RIGHT>, <&mmv MOVE_X(FAST_MOVE_VAL)>;
+                        bindings = <&mmv MOVE_X(DEFAULT_MOVE_VAL)>, <&mmv MOVE_X(FAST_MOVE_VAL)>;
                 };
                 mmv_up_boost: mmv_up_boost {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
-                        bindings = <&mmv MOVE_UP>, <&mmv MOVE_Y(-FAST_MOVE_VAL)>;
+                        bindings = <&mmv MOVE_Y(-DEFAULT_MOVE_VAL)>, <&mmv MOVE_Y(-FAST_MOVE_VAL)>;
                 };
                 mmv_down_boost: mmv_down_boost {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
-                        bindings = <&mmv MOVE_DOWN>, <&mmv MOVE_Y(FAST_MOVE_VAL)>;
+                        bindings = <&mmv MOVE_Y(DEFAULT_MOVE_VAL)>, <&mmv MOVE_Y(FAST_MOVE_VAL)>;
                 };
 
                 msc_up_boost: msc_up_boost {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
-                        // Wheel Y (0x08): default -10, boosted -20
-                        bindings = <&msc (((0x08 << 16) | ((-10) & 0xFFFF)))>, <&msc (((0x08 << 16) | ((-20) & 0xFFFF)))>;
+                        // Wheel Y (0x08): default speed, boosted speed
+                        bindings = <&msc (((0x08 << 16) | ((-DEFAULT_SCRL_VAL) & 0xFFFF)))>, <&msc (((0x08 << 16) | ((-FAST_SCRL_VAL) & 0xFFFF)))>;
                 };
                 msc_down_boost: msc_down_boost {
                         compatible = "zmk,behavior-mod-morph";
                         #binding-cells = <0>;
                         mods = <(MOD_LSFT|MOD_RSFT)>;
-                        // Wheel Y (0x08): default 10, boosted 20
-                        bindings = <&msc (((0x08 << 16) | ((10) & 0xFFFF)))>, <&msc (((0x08 << 16) | ((20) & 0xFFFF)))>;
+                        // Wheel Y (0x08): default speed, boosted speed
+                        bindings = <&msc (((0x08 << 16) | ((DEFAULT_SCRL_VAL) & 0xFFFF)))>, <&msc (((0x08 << 16) | ((FAST_SCRL_VAL) & 0xFFFF)))>;
                 };
         };
 
