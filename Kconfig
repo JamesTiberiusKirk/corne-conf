@@ -7,3 +7,14 @@ config ZMK_WIDGET_NYAN
       Adds an animated Nyan Cat widget to the status screen.
 
 endmenu
+
+menu "Corne Custom Features"
+
+config CORNE_LAYER_BLE_SERVICE
+    bool "Expose active layer over a custom BLE GATT service"
+    default y
+    help
+      Publishes the highest active layer name through a custom BLE
+      characteristic that supports read and notify.
+
+endmenu

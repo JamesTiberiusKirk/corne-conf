@@ -1,0 +1,8 @@
+{
+  "custom/corne-layer": {
+    "return-type": "json",
+    "format": "{}",
+    "exec": "cat ~/.cache/corne-layer.json",
+    "interval": 1
+  }
+}

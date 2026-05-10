@@ -1,7 +1,12 @@
 firmware/
 out/
 build/
+build-out/
 .west/
 zmk/
 zephyr/
 modules/
+
+# Go binaries
+host/*/cornd
+host/*/cornectl
