@@ -1,0 +1,64 @@
+#!/bin/bash
+# Flash a nice!nano. Double-tap reset when prompted.
+# The half is detected from the board's USB serial (saved in .flash-sides on first use).
+# Usage: ./flash [left|right|both]   (no arg: detect)
+
+set -e
+cd "$(dirname "$0")"
+
+DEV=/dev/disk/by-label/NICENANO
+SIDES=.flash-sides
+
+wait_board() {
+    echo "→ double-tap reset on ${1:-a} half..."
+    until [ -e "$DEV" ]; do sleep 0.5; done
+    udevadm settle 2>/dev/null || true
+    serial=$(udevadm info --query=property --name="$DEV" 2>/dev/null | sed -n 's/^ID_SERIAL_SHORT=//p')
+    [ -n "$serial" ] || { echo "✗ couldn't read board serial"; exit 1; }
+}
+
+flash_board() {
+    local side=$1 uf2="firmware/corne_$1.uf2"
+    [ -f "$uf2" ] || { echo "✗ $uf2 missing, run ./build first"; exit 1; }
+
+    local mnt
+    mnt=$(findmnt -n -o TARGET "$DEV" || true)
+    if [ -z "$mnt" ]; then
+        udisksctl mount -b "$DEV" >/dev/null
+        mnt=$(findmnt -n -o TARGET "$DEV")
+    fi
+
+    # board reboots as soon as the copy lands, so cp/sync may complain
+    cp "$uf2" "$mnt/" 2>/dev/null || true
+    sync 2>/dev/null || true
+
+    until [ ! -e "$DEV" ]; do sleep 0.5; done
+    echo "✓ $side flashed"
+}
+
+# flash whatever half is plugged in; $1 = expected side (optional)
+run() {
+    wait_board "$1"
+    local known
+    known=$(awk -v s="$serial" '$1 == s {print $2}' "$SIDES" 2>/dev/null || true)
+
+    if [ -z "$known" ]; then
+        known=$1
+        while [ "$known" != left ] && [ "$known" != right ]; do
+            read -rp "  new board ($serial), left or right? " known
+        done
+        echo "$serial $known" >> "$SIDES"
+        echo "  saved to $SIDES"
+    elif [ -n "$1" ] && [ "$1" != "$known" ]; then
+        echo "✗ that's the $known half, expected $1"; exit 1
+    fi
+
+    flash_board "$known"
+}
+
+case "$1" in
+    "") run ;;
+    left|right) run "$1" ;;
+    both) run left; run right ;;
+    *) echo "usage: $0 [left|right|both]"; exit 1 ;;
+esac

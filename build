@@ -24,7 +24,7 @@ if ! docker run --rm \
         set -e  # Exit on error inside docker
         [ ! -d .west ] && west init -l config/ || echo 'Workspace already initialized'
         west update
-        west build -s zmk/app -b nice_nano_v2 -d build-out/left -- -DSHIELD='corne_left nice_view_adapter nice_view' -DZMK_CONFIG=/workspace/config -DCMAKE_PREFIX_PATH=/workspace/zephyr/share/zephyr-package/cmake
+        west build -s zmk/app -b nice_nano_v2 -d build-out/left -S studio-rpc-usb-uart -- -DSHIELD='corne_left nice_view_adapter nice_view' -DZMK_CONFIG=/workspace/config -DCMAKE_PREFIX_PATH=/workspace/zephyr/share/zephyr-package/cmake
         mkdir -p firmware
         cp build-out/left/zephyr/zmk.uf2 firmware/corne_left.uf2
     "; then
